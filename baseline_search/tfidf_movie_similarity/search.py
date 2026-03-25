@@ -57,3 +57,14 @@ def rank_movies(movies: list[dict[str, str]], query: str, top_k: int = 3) -> lis
     scored = [(movie["title"], cosine_similarity(qv, vector)) for movie, vector in zip(movies, vectors)]
     scored.sort(key=lambda row: row[1], reverse=True)
     return scored[:top_k]
+
+
+def explain_top_match(movies: list[dict[str, str]], query: str) -> dict[str, object]:
+    ranked = rank_movies(movies, query, top_k=1)
+    if not ranked:
+        return {"title": None, "overlap_terms": []}
+    top_title, score = ranked[0]
+    query_terms = set(tokenize(query))
+    top_doc = next(movie for movie in movies if movie["title"] == top_title)
+    doc_terms = set(tokenize(f"{top_doc['title']} {top_doc['description']}"))
+    return {"title": top_title, "score": score, "overlap_terms": sorted(query_terms & doc_terms)}
