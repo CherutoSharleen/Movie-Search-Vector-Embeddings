@@ -58,7 +58,3 @@ All movie entries in the runnable mini project are fictional and synthetic.
 - The corpus is intentionally small.
 - Rankings are lexical and do not use neural embeddings.
 - You can extend this by adding stemming, synonym expansion, or snippet generation.
-
-## Disclosure
-
-This is a retrospective educational addition created now. Historical author/committer dates in commit metadata do not indicate the actual execution date of the work.

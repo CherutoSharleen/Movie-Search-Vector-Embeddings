@@ -68,7 +68,3 @@ All movies and descriptions are fictional/synthetic.
 - No stemming or synonym handling.
 - Small corpus can produce unstable rankings.
 - Extend with phrase boosts or snippet highlighting.
-
-## Disclosure
-
-This is a retrospective educational addition created now. Historical author/committer dates may be used for commit metadata and do not indicate the actual execution date of this work.
