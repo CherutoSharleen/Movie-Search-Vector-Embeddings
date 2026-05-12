@@ -68,3 +68,19 @@ def explain_top_match(movies: list[dict[str, str]], query: str) -> dict[str, obj
     top_doc = next(movie for movie in movies if movie["title"] == top_title)
     doc_terms = set(tokenize(f"{top_doc['title']} {top_doc['description']}"))
     return {"title": top_title, "score": score, "overlap_terms": sorted(query_terms & doc_terms)}
+
+
+def rank_with_overlap_counts(
+    movies: list[dict[str, str]],
+    query: str,
+    top_k: int = 3,
+) -> list[dict[str, object]]:
+    ranked = rank_movies(movies, query, top_k=top_k)
+    query_terms = set(tokenize(query))
+    output: list[dict[str, object]] = []
+    for title, score in ranked:
+        movie = next(item for item in movies if item["title"] == title)
+        terms = set(tokenize(f"{movie['title']} {movie['description']}"))
+        overlap = sorted(query_terms & terms)
+        output.append({"title": title, "score": score, "overlap_count": len(overlap), "overlap_terms": overlap})
+    return output

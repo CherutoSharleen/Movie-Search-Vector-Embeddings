@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import unittest
 
-from search import explain_top_match, rank_movies
+from search import explain_top_match, rank_movies, rank_with_overlap_counts
 
 
 class TfidfSearchTests(unittest.TestCase):
@@ -24,6 +24,13 @@ class TfidfSearchTests(unittest.TestCase):
         explanation = explain_top_match(movies, "floating robots")
         self.assertEqual(explanation["title"], "Skyward Robots")
         self.assertIn("robots", explanation["overlap_terms"])
+
+    def test_rank_with_overlap_counts(self) -> None:
+        base = Path(__file__).resolve().parents[1]
+        movies = json.loads((base / "movies.json").read_text(encoding="utf-8"))
+        ranked = rank_with_overlap_counts(movies, "floating robots", top_k=1)
+        self.assertEqual(ranked[0]["title"], "Skyward Robots")
+        self.assertGreaterEqual(ranked[0]["overlap_count"], 1)
 
 
 if __name__ == "__main__":
