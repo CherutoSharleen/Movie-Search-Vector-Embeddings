@@ -84,3 +84,10 @@ def rank_with_overlap_counts(
         overlap = sorted(query_terms & terms)
         output.append({"title": title, "score": score, "overlap_count": len(overlap), "overlap_terms": overlap})
     return output
+
+
+def score_spread(movies: list[dict[str, str]], query: str, top_k: int = 3) -> float:
+    ranked = rank_movies(movies, query, top_k=top_k)
+    if len(ranked) < 2:
+        return 0.0
+    return ranked[0][1] - ranked[-1][1]
