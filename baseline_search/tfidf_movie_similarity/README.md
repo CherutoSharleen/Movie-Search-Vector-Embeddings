@@ -7,6 +7,7 @@ This mini application teaches information retrieval basics by ranking fictional 
 - Loads a small synthetic movie catalog.
 - Converts movie text into TF-IDF vectors.
 - Ranks movies by cosine similarity to a user query.
+- Shows overlap terms between the query and each result.
 
 ## Concepts
 
@@ -48,8 +49,8 @@ robots in a floating city
 Output shape:
 
 ```text
-- Skyward Robots (score=...)
-- ...
+- Skyward Robots (score=..., overlap=...)
+  terms: robots, floating
 ```
 
 ## Main components
