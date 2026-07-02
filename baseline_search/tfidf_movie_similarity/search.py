@@ -91,3 +91,7 @@ def score_spread(movies: list[dict[str, str]], query: str, top_k: int = 3) -> fl
     if len(ranked) < 2:
         return 0.0
     return ranked[0][1] - ranked[-1][1]
+
+
+def query_terms(query: str) -> list[str]:
+    return sorted(set(tokenize(query)))
