@@ -2,7 +2,14 @@ import json
 from pathlib import Path
 import unittest
 
-from search import explain_top_match, query_terms, rank_movies, rank_with_overlap_counts, score_spread
+from search import (
+    explain_top_match,
+    has_query_terms,
+    query_terms,
+    rank_movies,
+    rank_with_overlap_counts,
+    score_spread,
+)
 
 
 class TfidfSearchTests(unittest.TestCase):
@@ -41,6 +48,10 @@ class TfidfSearchTests(unittest.TestCase):
     def test_query_terms_unique_sorted(self) -> None:
         terms = query_terms("robots floating robots")
         self.assertEqual(terms, ["floating", "robots"])
+
+    def test_has_query_terms(self) -> None:
+        self.assertTrue(has_query_terms("robots"))
+        self.assertFalse(has_query_terms("   "))
 
 
 if __name__ == "__main__":

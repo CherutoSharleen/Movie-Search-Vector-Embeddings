@@ -95,3 +95,7 @@ def score_spread(movies: list[dict[str, str]], query: str, top_k: int = 3) -> fl
 
 def query_terms(query: str) -> list[str]:
     return sorted(set(tokenize(query)))
+
+
+def has_query_terms(query: str) -> bool:
+    return len(query_terms(query)) > 0
